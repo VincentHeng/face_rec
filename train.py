@@ -10,9 +10,9 @@ from PIL import Image
 class Network(nn.Module):
 	def __init__(self):
 		super(Network, self).__init__()
-		self.conv1 = nn.Conv2d(in_channels=3, out_channels=8, kernel_size=5) # inoput, output, stride, etc
-		self.conv2 = nn.Conv2d(in_channels=8, out_channels=8, kernel_size=5) # inoput, output, stride, etc
-		self.conv3 = nn.Conv2d(in_channels=8, out_channels=8, kernel_size=4) # inoput, output, stride, etc
+		self.conv1 = nn.Conv2d(in_channels=3, out_channels=8, kernel_size=5) # input, output, stride, etc
+		self.conv2 = nn.Conv2d(in_channels=8, out_channels=8, kernel_size=5) # input, output, stride, etc
+		self.conv3 = nn.Conv2d(in_channels=8, out_channels=8, kernel_size=4) # input, output, stride, etc
 		self.relu = nn.ReLU()
 		self.maxpool = nn.MaxPool2d(2,2)
 		self.fc1 = nn.Linear(in_features=8 * 13 * 13 , out_features=8)
@@ -81,7 +81,7 @@ def main():
 	print('Accuracy: {}'.format(acc))
 	return acc
 
-def pred(show_img = False): # change to infer
+def pred(show_img = False): 
 	dataset = MyDataSet('infer_set.csv', 'infer_set', transform=None)
 	val_loader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=True)
 	val_set = torch.utils.data
@@ -114,5 +114,6 @@ def pred(show_img = False): # change to infer
 	print('Accuracy: {}'.format(correct/total))
 
 if __name__ == '__main__':
-	# main()
+	# run main to retrain network
+	# main() 
 	pred(show_img=True)
