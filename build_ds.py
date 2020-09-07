@@ -68,15 +68,13 @@ def adj_br(dirname):
 		new_im_brup.save("{}/{}".format(dirname, iname[:ext_index] + "_incBr" + iname[ext_index:]))
 		new_im_brdown.save("{}/{}".format(dirname, iname[:ext_index] + "_decBr" + iname[ext_index:]))
 
-
 def mod_photos(dirname):
-	#apply_op(dirname, ImageOps.mirror) #1, doubles, MIRROR
-	# apply_op(dirname, ImageOps.invert) #2, doubles, INVERT
-	# apply_op(dirname, ImageOps.grayscale) #3, doubles, GRAYSCALE
-	apply_op(dirname, ImageOps.equalize) #4, doubles, equalize
-	apply_blur(dirname) #5 doubles
-	adj_br(dirname) #6 triples
-
+	#apply_op(dirname, ImageOps.mirror)
+	# apply_op(dirname, ImageOps.invert)
+	# apply_op(dirname, ImageOps.grayscale)
+	apply_op(dirname, ImageOps.equalize)
+	apply_blur(dirname)
+	adj_br(dirname)
 
 def rename_photos(dirname, name):
 	name_set = {} # dictionary of name tallies
@@ -85,17 +83,12 @@ def rename_photos(dirname, name):
 	for iname in os.listdir(dirname):
 		iname_queue.append(iname)
 		count += 1
-
-	# print(name_set)
-	# print(iname_queue)
-
 	for iname in iname_queue:
 		os.rename('{}/{}'.format(dirname, iname), "{}/{}{}.jpg".format(dirname, name, count))
 		count -= 1
 
 def create_csv(fname, dirname):
 	mp = {'vincent': 0, 'grandma': 1, 'grandpa': 2, 'mom': 3}
-
 	with open(fname, 'w', newline='') as csvfile:
 		csv_writer = csv.writer(csvfile)
 		for folder in os.listdir(dirname):
@@ -116,20 +109,15 @@ def iname2name(iname):
 
 def main():
 	# first loop resolution to 128x128	
-	# name = 'edwardcpy'
-	# dirname = 'dataset/{}'.format(name)
 	for name in ['vincent', 'grandma', 'grandpa', 'mom']:
 		dirname = 'infer_set/{}'.format(name)
 		for i in os.listdir(dirname):
 			im = Image.open("%s/%s" % (dirname, i))
 			im = im.resize((128, 128))
 			# im = ImageOps.grayscale(im)
-			im.save("%s/%s" % (dirname, i))
-
-		
+			im.save("%s/%s" % (dirname, i))		
 		mod_photos(dirname)
 		rename_photos(dirname, name)
-
 	csv_name = 'infer_set.csv'
 	ifolder = 'infer_set'
 	create_csv(csv_name, ifolder)
