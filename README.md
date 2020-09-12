@@ -2,7 +2,7 @@
 A neural network trained to classify images of family members
 
 Convolutional neural network architecture comprises of 3 convolutional layers followed by 2 fully connected linear layers. 
-Network trained on limited custom dataset created small image set expanded through contrast adjustments. 
+Network trained on limited custom dataset created small image set expanded through PIL transforms. 
 
 train.py : trains the network; also contains the pref() function to use trained network to infer on validation set
 
